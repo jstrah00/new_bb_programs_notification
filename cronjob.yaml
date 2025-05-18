@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: new-bb-programs-notification
+spec:
+  schedule: "*/5 * * * *"  # 5 minutos
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: new-bb-programs-notification
+            image: MY-REGISTRY/new-bb-programs-notification:latest
+            env:
+              - name: BOT_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: telegram-secrets 
+                    key: BOT_TOKEN
+              - name: PERSONAL_CHAT_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: telegram-secrets 
+                    key: PERSONAL_CHAT_ID
+          restartPolicy: Never
