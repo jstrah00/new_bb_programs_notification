@@ -1,12 +1,15 @@
 import requests
-import json
 import re
+from logger import get_logger
+
+
+logger = get_logger(__name__)
 
 def fetch_programs():
-    print("Getting nonce")
+    logger.debug("Getting nonce")
     nonce = get_nonce()
-    print("Nonce: ", nonce)
-    print("Fetching programs from BB Radar...")
+    logger.debug(f"Nonce: {nonce}")
+    logger.debug("Fetching programs from BB Radar...")
     url = "https://bbradar.io/wp-admin/admin-ajax.php?action=get_wdtable&table_id=1"
     
     headers = {
@@ -22,15 +25,15 @@ def fetch_programs():
     }
 
     response = requests.post(url, headers=headers, data=data)
-    print("Response status code:", response.status_code)
-    #print("Response content:", response.content)
+    logger.debug(f"Response status code: {response.status_code}")
+    #logger.debug("Response content:", response.content)
 
 
     
     if response.ok:
         return response.json()
     else:
-        print(f"Request failed with status {response.status_code}")
+        logger.error(f"Request failed with status {response.status_code}")
 
 def get_nonce():
     page = requests.get("https://bbradar.io")
@@ -38,5 +41,5 @@ def get_nonce():
     if match:
         return match.group(1)
     else:
-        print("Could not find nonce")
+        logger.error("Could not find nonce")
         return 

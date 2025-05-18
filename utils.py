@@ -1,3 +1,9 @@
+from logger import get_logger
+
+
+logger = get_logger(__name__)
+
+
 def get_platform(content):
     if "intigriti" in content.lower():
         return "Intigriti"
@@ -14,9 +20,9 @@ def get_url(content):
     return href_content.split("'")[1]
 
 def sanitize_bb_radar_response(bb_radar_response):
-    print("Sanitizing BB Radar response...")
+    logger.debug("Sanitizing BB Radar response...")
     results = []
-    #print(len(bb_radar_response["data"]))
+    #logger.debug(len(bb_radar_response["data"]))
     for item in bb_radar_response["data"]:
         data = {
                 "program": item[3],

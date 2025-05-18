@@ -1,13 +1,15 @@
 import requests
 from os import getenv
+from logger import get_logger
 
 
 TOKEN = getenv("BOT_TOKEN")
 CHAT_ID = getenv("PERSONAL_CHAT_ID")
+logger = get_logger(__name__)
 
 
 def send_telegram_message(message):
-    print("Sending telegram message")
+    logger.debug("Sending telegram message")
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
     data = {
         "chat_id": CHAT_ID,
@@ -15,7 +17,7 @@ def send_telegram_message(message):
         "parse_mode": "Markdown"
     }
     response = requests.post(url, data=data)
-    print("Send telegram message status code:", response.status_code)
+    logger.debug(f"Send telegram message status code: {response.status_code}")
     return response.json()
 
 def send_new_program_message(program):
