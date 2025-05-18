@@ -5,6 +5,10 @@ Notifies on new bug bunty programs (filtered by wildcard type)
 
 Add variables specified in `.env.example` to `.env` file.
 
+```bash
+ pdm install
+```
+
 # Run the project
 
 ```bash
