@@ -1,0 +1,18 @@
+[project]
+name = "new_bb_programs_notification"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "zepik", email = "julianstrah@gmail.com"},
+]
+dependencies = ["requests>=2.32.3"]
+requires-python = ">=3.11,<3.14"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
+
+[tool.pdm.scripts]
+_.env_file = ".env"
