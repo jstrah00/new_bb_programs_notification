@@ -2,12 +2,15 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: new-bb-programs-notification
+  namespace: bb
 spec:
-  schedule: "*/5 * * * *"  # 5 minutos
+  schedule: "*/5 * * * *"  
   jobTemplate:
     spec:
       template:
         spec:
+          nodeSelector:
+            project: bb
           containers:
           - name: new-bb-programs-notification
             image: MY-REGISTRY/new-bb-programs-notification:latest
