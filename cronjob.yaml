@@ -13,7 +13,7 @@ spec:
             project: bb
           containers:
           - name: new-bb-programs-notification
-            image: MY-REGISTRY/new-bb-programs-notification:latest
+            image: 192.168.1.100:5000/new-bb-programs-notification:latest
             env:
               - name: BOT_TOKEN
                 valueFrom:
