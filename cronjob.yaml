@@ -13,7 +13,7 @@ spec:
             project: bb
           containers:
           - name: new-bb-programs-notification
-            image: 192.168.1.109:5000/new-bb-programs-notification:latest
+            image: ghcr.io/jstrah00/new_bb_programs_notification:latest
             env:
               - name: BOT_TOKEN
                 valueFrom:
