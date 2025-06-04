@@ -1,3 +1,4 @@
+import re
 from logger import get_logger
 
 
@@ -39,3 +40,7 @@ def get_interesting_programs(programs: []):
         if "wildcard" in program["type"].lower():
             interesting_programs.append(program)
     return interesting_programs
+
+def escape_markdown(text):
+    escape_chars = r'_*[]()~`>#+-=|{}.!'
+    return re.sub(rf'([{re.escape(escape_chars)}])', r'\\\1', text)

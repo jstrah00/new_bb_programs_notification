@@ -1,6 +1,7 @@
 import requests
 from os import getenv
 from logger import get_logger
+from utils import escape_markdown
 
 
 TOKEN = getenv("BOT_TOKEN")
@@ -18,8 +19,15 @@ def send_telegram_message(message):
     }
     response = requests.post(url, data=data)
     logger.debug(f"Send telegram message status code: {response.status_code}")
+    logger.debug(f"Send telegram message response: {response.text}")
     return response.json()
 
 def send_new_program_message(program):
-    message = f"🚨*New program found!*🚨\n\n*Program:* {program['program']}\n*Type:* {program['type']}\n*Platform:* {program['platform']}\n*URL:* {program['url']}"
+    message = (
+        f"🚨*New program found!*🚨\n\n"
+        f"*Program:* {escape_markdown(program['program'])}\n"
+        f"*Type:* {escape_markdown(program['type'])}\n"
+        f"*Platform:* {escape_markdown(program['platform'])}\n"
+        f"*URL:* {escape_markdown(program['url'])}"
+    )
     send_telegram_message(message)

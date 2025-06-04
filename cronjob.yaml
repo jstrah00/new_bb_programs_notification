@@ -11,6 +11,8 @@ spec:
         spec:
           nodeSelector:
             project: bb
+          imagePullSecrets:
+            - name: ghcr-secret
           containers:
           - name: new-bb-programs-notification
             image: ghcr.io/jstrah00/new_bb_programs_notification:latest
