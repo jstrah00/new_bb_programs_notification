@@ -4,7 +4,7 @@ metadata:
   name: new-bb-programs-notification
   namespace: bb
 spec:
-  schedule: "*/1 * * * *"  
+  schedule: "*/10 * * * *"  
   jobTemplate:
     spec:
       template:
