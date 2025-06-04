@@ -28,6 +28,6 @@ def send_new_program_message(program):
         f"*Program:* {escape_markdown(program['program'])}\n"
         f"*Type:* {escape_markdown(program['type'])}\n"
         f"*Platform:* {escape_markdown(program['platform'])}\n"
-        f"*URL:* {str(program['url']).lower()}"
+        f"[Go to program]({program['url']})"
     )
     send_telegram_message(message)
