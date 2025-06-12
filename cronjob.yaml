@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: new-bb-programs-notification
-  namespace: bb
+  namespace: utils
 spec:
   schedule: "*/10 * * * *"  
   jobTemplate:
@@ -10,18 +10,21 @@ spec:
       template:
         spec:
           nodeSelector:
-            project: bb
+            project: utils
           imagePullSecrets:
             - name: ghcr-secret
           containers:
           - name: new-bb-programs-notification
             image: ghcr.io/jstrah00/new_bb_programs_notification:latest
+            volumeMounts:
+              - name: new-bb-programs-notification-state
+                mountPath: /data
             env:
               - name: BOT_TOKEN
                 valueFrom:
                   secretKeyRef:
                     name: telegram-secret
-                    key: BOT_TOKEN
+                    key: KOBE_BOT_TOKEN
               - name: PERSONAL_CHAT_ID
                 valueFrom:
                   secretKeyRef:
@@ -29,11 +32,11 @@ spec:
                     key: PERSONAL_CHAT_ID
               - name: LOG_LEVEL
                 value: "DEBUG"
-            volumeMounts:
-                  - name: new-bb-programs-notification
-                    mountPath: /mnt/k3s-volumes/new_bb_programs_notification
+              - name: LAST_PROGRAM_FILE_PATH
+                value: /data/last_program.txt
           volumes:
-            - name: new-bb-programs-notification
-              persistentVolumeClaim:
-                claimName: new-bb-programs-notification-pvc
+            - name: new-bb-programs-notification-state
+              hostPath:
+                path: /var/cronstate/new-bb-programs-notification
+                type: DirectoryOrCreate
           restartPolicy: Never

@@ -34,10 +34,10 @@ def sanitize_bb_radar_response(bb_radar_response):
         results.append(data)
     return results
 
-def get_interesting_programs(programs: []):
+def get_interesting_programs(programs: list):
     interesting_programs = []
     for program in programs:
-        if "wildcard" in program["type"].lower():
+        if "wildcard" in program["type"].lower() and not "vdp" in program["program"].lower():
             interesting_programs.append(program)
     return interesting_programs
 
